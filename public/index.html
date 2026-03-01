@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -90,12 +91,15 @@
         </div>
 
         <div class="main-content">
+            <!-- زر القائمة للهاتف -->
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+
             <div class="section-header" id="sectionHeader">
                 <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i> رجوع</button>
                 <h2 id="sectionTitle">الرئيسية</h2>
             </div>
 
-            <!-- الصفحة الرئيسية (بدون زر طباعة) -->
+            <!-- الصفحة الرئيسية -->
             <div id="dashboardSection" class="section active">
                 <h2>الرئيسية</h2>
                 <div class="stats-grid" id="dashboardStats"></div>
@@ -167,7 +171,7 @@
                 <button class="btn btn-success" onclick="submitBuy()"><i class="fas fa-check"></i> تأكيد الشراء</button>
             </div>
 
-            <!-- صفحة الأرباح -->
+            <!-- الأرباح -->
             <div id="profitSection" class="section">
                 <div class="section-header">
                     <h2>الأرباح</h2>
@@ -179,7 +183,7 @@
                 </div>
             </div>
 
-            <!-- صفحة المخزون المنخفض -->
+            <!-- المخزون المنخفض -->
             <div id="lowstockSection" class="section">
                 <div class="section-header">
                     <h2>المخزون المنخفض</h2>
@@ -197,7 +201,7 @@
                 </div>
             </div>
 
-            <!-- صفحة الإرساليات -->
+            <!-- الإرساليات -->
             <div id="shipmentsSection" class="section">
                 <div class="section-header">
                     <h2>الإرساليات</h2>
@@ -224,7 +228,7 @@
                 </div>
             </div>
 
-            <!-- صفحة التقارير -->
+            <!-- التقارير -->
             <div id="reportsSection" class="section">
                 <div class="section-header">
                     <h2>التقارير المالية</h2>

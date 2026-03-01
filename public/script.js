@@ -1,3 +1,4 @@
+// script.js
 let items = [];
 let sellItems = [];
 let buyItems = [];
@@ -111,6 +112,11 @@ function showSection(section) {
         document.querySelector('.sidebar-menu li:nth-child(8)').classList.add('active');
         document.getElementById('reportsSection').classList.add('active');
         loadReports();
+    }
+
+    // إغلاق القائمة على الهاتف بعد اختيار قسم
+    if (window.innerWidth <= 768) {
+        document.querySelector('.sidebar').classList.remove('show-sidebar');
     }
 }
 
@@ -763,30 +769,26 @@ document.getElementById('changePasswordForm').addEventListener('submit', async f
         alert('خطأ في الاتصال');
     }
 });
+
 // دالة طباعة القسم
 function printSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (!section) return;
 
-    // الحصول على عنوان القسم
     const title = section.querySelector('h2')?.innerText || 'تقرير';
 
-    // فتح نافذة جديدة
     const printWindow = window.open('', '_blank');
     printWindow.document.write('<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><title>' + title + '</title>');
 
-    // نسخ جميع روابط CSS من الصفحة الأصلية
     const links = document.querySelectorAll('link[rel="stylesheet"]');
     links.forEach(link => {
         printWindow.document.write('<link rel="stylesheet" href="' + link.href + '" type="text/css">');
     });
 
-    // إضافة أنماط طباعة إضافية
     printWindow.document.write('<style>@media print { body { padding: 20px; } .no-print { display: none; } }</style>');
     printWindow.document.write('</head><body>');
     printWindow.document.write('<h2>' + title + '</h2>');
     
-    // نسخ محتوى القسم مع استثناء الأزرار
     const content = section.cloneNode(true);
     content.querySelectorAll('.btn, .action-bar, .section-header .btn').forEach(el => el.remove());
     printWindow.document.write(content.innerHTML);
@@ -795,4 +797,36 @@ function printSection(sectionId) {
     printWindow.document.close();
     printWindow.print();
 }
+
+// ===== التحكم في قائمة الهاتف =====
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.querySelector('.sidebar');
+
+if (menuToggle) {
+    menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('show-sidebar');
+    });
+}
+
+// إغلاق القائمة عند النقر على أي رابط فيها (للهاتف)
+document.querySelectorAll('.sidebar-menu li').forEach(item => {
+    item.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.remove('show-sidebar');
+        }
+    });
+});
+
+// إغلاق القائمة عند النقر خارجها (اختياري)
+document.addEventListener('click', function(event) {
+    if (window.innerWidth <= 768) {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnToggle = menuToggle.contains(event.target);
+        if (!isClickInsideSidebar && !isClickOnToggle && sidebar.classList.contains('show-sidebar')) {
+            sidebar.classList.remove('show-sidebar');
+        }
+    }
+});
+
+// تحميل الأصناف عند بدء التشغيل
 loadItems();
